@@ -11,17 +11,14 @@
 import { useContext } from "react";
 import { GlobalContext } from "./contexts/GlobalContext";
 
+import ListaProdutos from "./components/Produto/ListaProdutos";
+
 const App = () => {
-  const { produto } = useContext(GlobalContext);
-  console.log(produto);
-
-  // useEffect(() => {
-  //   console.log('oip', produto);
-  // }, []);
-
-  return (
-    <h2>App</h2>
-  )
+  const { produtos } = useContext(GlobalContext);
+  
+  return (<>
+    {produtos?.map(produto => <ListaProdutos key={produto.id} produto={produto} />)}
+  </>)
 }
 
 export default App;
