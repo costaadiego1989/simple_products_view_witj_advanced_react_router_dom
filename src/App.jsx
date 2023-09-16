@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react'
 import './App.css'
 import Produto from './components/Produto';
+import UseLocalStorage from './contexts/useLocalStorage';
 
 function App() {
 // Quando o usuário clicar em um dos botões, faça um fetch do produto clicado utilizando a api abaixo
@@ -11,6 +13,7 @@ function App() {
 // Quando o usuário entrar no site, se existe um produto no localStorage, faça o fetch do mesmo
 
 const [produto, setProduto] = useState(null);
+const [produtoLocal, setProdutoLocal] = UseLocalStorage('product', '');
 
   const handleClick = async (e) => {
     const value = e.target.innerHTML;
@@ -18,7 +21,7 @@ const [produto, setProduto] = useState(null);
     const json = await products.json();
     if (produto !== null) setProduto(null);
     setProduto(json);
-    localStorage.setItem('produto', JSON.stringify(produto));
+    setProdutoLocal(produto);
   }
 
   useEffect(() => {
