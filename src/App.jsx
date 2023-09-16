@@ -1,42 +1,27 @@
-/* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react'
-import './App.css'
-import Produto from './components/Produto';
-import UseLocalStorage from './contexts/useLocalStorage';
-
-function App() {
-// Quando o usuário clicar em um dos botões, faça um fetch do produto clicado utilizando a api abaixo
+// Utilize a API abaixo para puxar a lista de produto
+// https://ranekapi.origamid.dev/json/api/produto
+// Cada produto possui o id, o mesmo pode ser passado na api para retornar os dados desse produto específico
 // https://ranekapi.origamid.dev/json/api/produto/notebook
-// https://ranekapi.origamid.dev/json/api/produto/smartphone
-// Mostre o nome e preço na tela (separe essa informação em um componente Produto.js)
-// Defina o produto clicado como uma preferência do usuário no localStorage
-// Quando o usuário entrar no site, se existe um produto no localStorage, faça o fetch do mesmo
+// Utilize a API abaixo para puxar a lista de produto
+// https://ranekapi.origamid.dev/json/api/produto
+// Cada produto possui o id, o mesmo pode ser passado na api para retornar os dados desse produto específico
+// https://ranekapi.origamid.dev/json/api/produto/notebook
 
-const [produto, setProduto] = useState(null);
-const [produtoLocal, setProdutoLocal] = UseLocalStorage('product', '');
+// import { useEffect } from "react"
+import { useContext } from "react";
+import { GlobalContext } from "./contexts/GlobalContext";
 
-  const handleClick = async (e) => {
-    const value = e.target.innerHTML;
-    const products = await fetch(`https://ranekapi.origamid.dev/json/api/produto/${value}`);
-    const json = await products.json();
-    if (produto !== null) setProduto(null);
-    setProduto(json);
-    setProdutoLocal(produto);
-  }
+const App = () => {
+  const { produto } = useContext(GlobalContext);
+  console.log(produto);
 
-  useEffect(() => {
-    const localProduct = window.localStorage.getItem('produto')
-    const localProductJson = JSON.parse(localProduct);
-    if(localProductJson !== null) setProduto(localProductJson);
-  }, []);
+  // useEffect(() => {
+  //   console.log('oip', produto);
+  // }, []);
 
   return (
-    <>
-      {produto && <Produto produto={produto} />}
-      <button onClick={handleClick}>Notebook</button>
-      <button onClick={handleClick}>Smartphone</button>
-    </>
+    <h2>App</h2>
   )
 }
 
-export default App
+export default App;

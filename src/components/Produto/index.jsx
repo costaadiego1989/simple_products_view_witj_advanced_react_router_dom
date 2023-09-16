@@ -1,15 +1,16 @@
-import P from 'prop-types';
+import { NavLink, Outlet } from "react-router-dom"
 
-const Produto = ({ produto }) => {
-    console.log(produto);
-  return (<>
-    <h2>Produto: {produto.nome}</h2>
-    <p>R${produto.preco}</p>
-    </>)
+const Prouto = () => {
+  return (
+    <div>
+      <h2>Prouto</h2>
+      <NavLink to='descricao'>Descrição</NavLink> {' | '}
+      <NavLink to='avaliacoes'>Avaliações</NavLink>
+      <section>
+        <Outlet />
+      </section>
+    </div>
+  )
 }
 
-Produto.propTypes = {
-    produto: P.object
-}
-
-export default Produto
+export default Prouto

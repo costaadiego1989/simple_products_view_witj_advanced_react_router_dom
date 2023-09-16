@@ -7,20 +7,17 @@
 
 import React, { useEffect, useState } from 'react';
 
-const GlobalContext = React.createContext();
+export const GlobalContext = React.createContext();
 
+// eslint-disable-next-line react/prop-types
 export const GlobalContextProvider = ({ children }) => {
-    const [produto, setProduto] = useState(null);
+    const [produtos, setProdutos] = useState(null);
     
     useEffect(() => {
-        fetch('https://ranekapi.origamid.dev/json/api/produto/')
+        fetch('https://ranekapi.origamid.dev/json/api/produto')
             .then(res => res.json())
-            .then(res => setProduto(res));
-    });
+            .then(res => setProdutos(res));
+    }, []);
 
-    function limparDados() {
-        setProduto(null);
-    }
-
-    <GlobalContext.Provider value={{produto, setProduto, limparDados}}>{children}</GlobalContext.Provider>
+    return <GlobalContext.Provider value={{produtos}}>{children}</GlobalContext.Provider>
 }
